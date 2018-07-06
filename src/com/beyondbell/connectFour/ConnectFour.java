@@ -130,61 +130,7 @@ public final class ConnectFour extends Applet implements KeyListener, MouseListe
     }
 
     private void checkWin() {
-        //Checks For Blackout
-        gameWon = null;
-        for (int i = 0; i < board[0].length; i++) {
-            if (board[0][i] == Piece.Empty) {
-                gameWon = Piece.Empty;
-            }
-        }
-
-        //Checks Horizontal Wins
-        for (int i = 0; i < board.length; i++) {
-            for (int h = 0; h < board[0].length - 3; h++) {
-                if (board[i][h] != Piece.Empty
-                        && board[i][h] == board[i][h + 1]
-                        && board[i][h] == board[i][h + 2]
-                        && board[i][h] == board[i][h + 3]) {
-                    gameWon = board[i][h];
-                }
-            }
-        }
-
-        //Checks Vertical Wins
-        for (int i = 0; i < board.length - 3; i++) {
-            for (int h = 0; h < board[0].length; h++) {
-                if (board[i][h] != Piece.Empty
-                        && board[i][h] == board[i + 1][h]
-                        && board[i][h] == board[i + 2][h]
-                        && board[i][h] == board[i + 3][h]) {
-                    gameWon = board[i][h];
-                }
-            }
-        }
-
-        //Checks Diagonal \ Wins
-        for (int i = 0; i < board.length - 3; i++) {
-            for (int h = 0; h < board[0].length - 3; h++) {
-                if (board[i][h] != Piece.Empty
-                        && board[i][h] == board[i + 1][h + 1]
-                        && board[i][h] == board[i + 2][h + 2]
-                        && board[i][h] == board[i + 3][h + 3]) {
-                    gameWon = board[i][h];
-                }
-            }
-        }
-
-        //Checks Diagonal / Win
-        for (int i = 0; i < board.length - 3; i++) {
-            for (int h = board[0].length - 1; h > 3; h--) {
-                if (board[i][h] != Piece.Empty
-                        && board[i][h] == board[i + 1][h - 1]
-                        && board[i][h] == board[i + 2][h - 2]
-                        && board[i][h] == board[i + 3][h - 3]) {
-                    gameWon = board[i][h];
-                }
-            }
-        }
+        gameWon = WinChecker.isWin(board);
     }
 
     private void resetGame() {
