@@ -144,6 +144,16 @@ public final class ConnectFour extends Applet implements KeyListener, MouseListe
         }
     }
 
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        if(gameWon == Piece.Empty) {
+            clickPiece(e.getX());
+            checkWin();
+            repaint();
+        }
+    }
+
     @Override
     public void keyTyped(KeyEvent e) {
         if(gameWon == Piece.Empty) {
@@ -158,30 +168,35 @@ public final class ConnectFour extends Applet implements KeyListener, MouseListe
         }
     }
 
-    @Override
-    public void keyPressed(KeyEvent e) {}
+    // Unimplemented
 
     @Override
-    public void keyReleased(KeyEvent e) {}
+    public void keyPressed(final KeyEvent e) {
 
-    @Override
-    public void mouseClicked(MouseEvent e) {
-        if(gameWon == Piece.Empty) {
-            clickPiece(e.getX());
-            checkWin();
-            repaint();
-        }
     }
 
     @Override
-    public void mousePressed(MouseEvent e) {}
+    public void keyReleased(KeyEvent e) {
+
+    }
 
     @Override
-    public void mouseReleased(MouseEvent e) {}
+    public void mousePressed(MouseEvent e) {
+
+    }
 
     @Override
-    public void mouseEntered(MouseEvent e) {}
+    public void mouseReleased(MouseEvent e) {
+
+    }
 
     @Override
-    public void mouseExited(MouseEvent e) {}
+    public void mouseEntered(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+
+    }
 }
