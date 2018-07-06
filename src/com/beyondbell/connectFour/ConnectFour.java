@@ -48,7 +48,7 @@ public final class ConnectFour extends Applet implements KeyListener, MouseListe
     }
 
     private void drawScoreboard(Graphics g) {
-        g.setFont(new Font("Times New Roman", 0, 16));
+        g.setFont(new Font("Times New Roman", Font.PLAIN, 16));
         g.setColor(Color.BLACK);
         g.drawString("Yellow", 710, 20);
         g.drawString("Red", 770, 20);
@@ -59,7 +59,7 @@ public final class ConnectFour extends Applet implements KeyListener, MouseListe
 
     private void drawRules(Graphics g) {
         g.setColor(Color.BLACK);
-        g.setFont(new Font("Times New Roman", 0, 16));
+        g.setFont(new Font("Times New Roman", Font.PLAIN, 16));
         g.drawString("How To Play", 710, 400);
         g.drawString("Either Click", 710, 420);
         g.drawString("A Row", 710, 440);
@@ -68,7 +68,7 @@ public final class ConnectFour extends Applet implements KeyListener, MouseListe
     }
 
     private void drawWinner(Graphics g) {
-        g.setFont(new Font("Times New Roman", 0, 16));
+        g.setFont(new Font("Times New Roman", Font.PLAIN, 16));
         g.setColor(Color.BLACK);
         if (gameWon != null) {
             switch (gameWon) {
