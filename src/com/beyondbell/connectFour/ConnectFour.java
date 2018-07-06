@@ -6,7 +6,7 @@ import java.awt.event.*;
 
 public final class ConnectFour extends Applet implements KeyListener, MouseListener {
     private boolean turn = false;
-    private Piece gameWon = Piece.Empty;
+    private WinState gameWon = WinState.NoOne;
     private int yellowWins = 0;
     private int redWins = 0;
     private Piece[][] board = {
@@ -70,31 +70,30 @@ public final class ConnectFour extends Applet implements KeyListener, MouseListe
     private void drawWinner(Graphics g) {
         g.setFont(new Font("Times New Roman", Font.PLAIN, 16));
         g.setColor(Color.BLACK);
-        if (gameWon != null) {
-            switch (gameWon) {
-                case Empty:
-                    g.drawString("It is ", 710, 200);
-                    if (turn) {
-                        g.drawString("Red's", 710, 220);
-                    } else {
-                        g.drawString("Yellow's", 710, 220);
-                    }
-                    g.drawString("turn!", 710, 240);
-                    break;
-                case Yellow:
-                    g.drawString("Yellow Won!", 710, 200);
-                    yellowWins++;
-                    g.drawString("Press Space!", 710, 220);
-                    break;
-                case Red:
-                    g.drawString("Red Won!", 710, 200);
-                    redWins++;
-                    g.drawString("Press Space!", 710, 220);
-                    break;
-            }
-        } else {
-            g.drawString("Tie Game!", 710, 200);
-            g.drawString("Press Space!", 710, 220);
+        switch (gameWon) {
+            case NoOne:
+                g.drawString("It is ", 710, 200);
+                if (turn) {
+                    g.drawString("Red's", 710, 220);
+                } else {
+                    g.drawString("Yellow's", 710, 220);
+                }
+                g.drawString("turn!", 710, 240);
+                break;
+            case Yellow:
+                g.drawString("Yellow Won!", 710, 200);
+                yellowWins++;
+                g.drawString("Press Space!", 710, 220);
+                break;
+            case Red:
+                g.drawString("Red Won!", 710, 200);
+                redWins++;
+                g.drawString("Press Space!", 710, 220);
+                break;
+            case Tie:
+                g.drawString("Tie Game!", 710, 200);
+                g.drawString("Press Space!", 710, 220);
+                break;
         }
     }
 
@@ -130,12 +129,12 @@ public final class ConnectFour extends Applet implements KeyListener, MouseListe
     }
 
     private void checkWin() {
-        gameWon = WinChecker.isWin(board);
+        gameWon = WinChecker.getWinState(board);
     }
 
     private void resetGame() {
         turn = false;
-        gameWon = Piece.Empty;
+        gameWon = WinState.NoOne;
         //Reset Board
         for (int i = 0; i < board.length; i++) {
             for (int h = 0; h < board[0].length; h++) {
@@ -147,7 +146,7 @@ public final class ConnectFour extends Applet implements KeyListener, MouseListe
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        if(gameWon == Piece.Empty) {
+        if(gameWon == WinState.NoOne) {
             clickPiece(e.getX());
             checkWin();
             repaint();
@@ -156,7 +155,7 @@ public final class ConnectFour extends Applet implements KeyListener, MouseListe
 
     @Override
     public void keyTyped(KeyEvent e) {
-        if(gameWon == Piece.Empty) {
+        if(gameWon == WinState.NoOne) {
             numberPress(e.getKeyChar());
             checkWin();
             repaint();
