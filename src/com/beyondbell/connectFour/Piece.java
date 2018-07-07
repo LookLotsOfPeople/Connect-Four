@@ -1,6 +1,9 @@
 package com.beyondbell.connectFour;
 
-import java.awt.*;
+import org.jetbrains.annotations.Contract;
+
+import java.awt.Color;
+
 
 public enum Piece {
 	Empty(Color.WHITE), Yellow(Color.YELLOW), Red(Color.RED);
@@ -11,6 +14,7 @@ public enum Piece {
 		this.color = color;
 	}
 
+	@Contract(pure = true)
 	public final Color getColor() {
 		return color;
 	}

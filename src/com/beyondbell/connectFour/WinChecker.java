@@ -111,6 +111,7 @@ final class WinChecker {
 	 * Checks if the board is full. Should be run after checking for a specific win since it returns either full or empty.
 	 *
 	 * @param board Main Game Board
+	 *
 	 * @return Whether or Not the Board is Full
 	 */
 	@Contract(pure = true)
