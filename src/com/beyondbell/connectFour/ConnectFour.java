@@ -1,7 +1,10 @@
 package com.beyondbell.connectFour;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.applet.Applet;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
@@ -10,27 +13,30 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 public final class ConnectFour extends Applet implements KeyListener, MouseListener {
-	private boolean turn = false;
-	private WinState gameWon = WinState.NoOne;
 	private int yellowWins = 0;
 	private int redWins = 0;
-	private Piece[][] board = {
-			{Piece.Empty, Piece.Empty, Piece.Empty, Piece.Empty, Piece.Empty, Piece.Empty, Piece.Empty},
-			{Piece.Empty, Piece.Empty, Piece.Empty, Piece.Empty, Piece.Empty, Piece.Empty, Piece.Empty},
-			{Piece.Empty, Piece.Empty, Piece.Empty, Piece.Empty, Piece.Empty, Piece.Empty, Piece.Empty},
-			{Piece.Empty, Piece.Empty, Piece.Empty, Piece.Empty, Piece.Empty, Piece.Empty, Piece.Empty},
-			{Piece.Empty, Piece.Empty, Piece.Empty, Piece.Empty, Piece.Empty, Piece.Empty, Piece.Empty},
-			{Piece.Empty, Piece.Empty, Piece.Empty, Piece.Empty, Piece.Empty, Piece.Empty, Piece.Empty},
-	};
 
-	public void init() {
+	private WinState gameWon = WinState.NoOne;
+	private boolean turn = false;
+	private Piece[][] board = getEmptyBoard();
+
+	public final void init() {
+		setName("Connect Four");
+		setBackground(Color.GRAY);
+
+		final Dimension dimension = new Dimension(800, 600);
+		resize(dimension);
+		setMinimumSize(dimension);
+		setMaximumSize(dimension);
+
 		setFocusable(true);
-		resize(800, 600);
+		setEnabled(true);
+
 		addMouseListener(this);
 		addKeyListener(this);
 	}
 
-	public void paint(Graphics g) {
+	public final void paint(Graphics g) {
 		drawBoard(g);
 		drawPieces(g);
 		drawScoreboard(g);
@@ -38,7 +44,7 @@ public final class ConnectFour extends Applet implements KeyListener, MouseListe
 		drawWinner(g);
 	}
 
-	private void drawBoard(Graphics g) {
+	private void drawBoard(@NotNull Graphics g) {
 		g.setColor(Color.BLACK);
 		g.fillRect(0, 0, 700, 600);
 	}
@@ -140,17 +146,23 @@ public final class ConnectFour extends Applet implements KeyListener, MouseListe
 	private void resetGame() {
 		turn = false;
 		gameWon = WinState.NoOne;
-		//Reset Board
-		for (int i = 0; i < board.length; i++) {
-			for (int h = 0; h < board[0].length; h++) {
-				board[i][h] = Piece.Empty;
-			}
-		}
+		board = getEmptyBoard();
+	}
+
+	private Piece[][] getEmptyBoard() {
+		return new Piece[][]{
+				{Piece.Empty, Piece.Empty, Piece.Empty, Piece.Empty, Piece.Empty, Piece.Empty, Piece.Empty},
+				{Piece.Empty, Piece.Empty, Piece.Empty, Piece.Empty, Piece.Empty, Piece.Empty, Piece.Empty},
+				{Piece.Empty, Piece.Empty, Piece.Empty, Piece.Empty, Piece.Empty, Piece.Empty, Piece.Empty},
+				{Piece.Empty, Piece.Empty, Piece.Empty, Piece.Empty, Piece.Empty, Piece.Empty, Piece.Empty},
+				{Piece.Empty, Piece.Empty, Piece.Empty, Piece.Empty, Piece.Empty, Piece.Empty, Piece.Empty},
+				{Piece.Empty, Piece.Empty, Piece.Empty, Piece.Empty, Piece.Empty, Piece.Empty, Piece.Empty},
+		};
 	}
 
 
 	@Override
-	public void mouseClicked(MouseEvent e) {
+	public final void mouseClicked(MouseEvent e) {
 		if (gameWon == WinState.NoOne) {
 			clickPiece(e.getX());
 			checkWin();
@@ -159,7 +171,7 @@ public final class ConnectFour extends Applet implements KeyListener, MouseListe
 	}
 
 	@Override
-	public void keyTyped(KeyEvent e) {
+	public final void keyTyped(KeyEvent e) {
 		if (gameWon == WinState.NoOne) {
 			numberPress(e.getKeyChar());
 			checkWin();
