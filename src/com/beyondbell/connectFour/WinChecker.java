@@ -6,7 +6,7 @@ import org.jetbrains.annotations.Nullable;
 
 final class WinChecker {
 	@Nullable
-	static WinState getWinState(final Piece[][] board) {
+	static WinState getWinState(final Board board) {
 		//Checks Horizontal Wins
 		final WinState horizontal = horizontalWin(board);
 		if (horizontal != WinState.NoOne) {
@@ -29,7 +29,7 @@ final class WinChecker {
 		}
 
 		// Checks for Full Board
-		if (isFull(board)) {
+		if (board.isFull()) {
 			return null;
 		} else {
 			return WinState.NoOne;
@@ -37,14 +37,14 @@ final class WinChecker {
 	}
 
 	@Contract(pure = true)
-	private static WinState horizontalWin(@NotNull final Piece[][] board) {
-		for (final Piece[] row : board) {
-			for (int column = 0; column < board[0].length - 3; column++) {
-				if (row[column] != Piece.Empty
-						&& row[column] == row[column + 1]
-						&& row[column] == row[column + 2]
-						&& row[column] == row[column + 3]) {
-					return getWinnerFromPiece(row[column]);
+	private static WinState horizontalWin(@NotNull final Board board) {
+		for (byte row = 0; row < board.getRowCount(); row++) {
+			for (byte column = 0; column < board.getColumnCount(); column++) {
+				if (board.getPiece(row, column) != Piece.Empty
+						&& board.getPiece(row, column) == board.getPiece(row, (byte) (column + 3))
+						&& board.getPiece(row, column) == board.getPiece(row, (byte) (column + 3))
+						&& board.getPiece(row, column) == board.getPiece(row, (byte) (column + 3))) {
+					return board.getPiece(row, column).getWinner();
 				}
 			}
 		}
@@ -52,14 +52,14 @@ final class WinChecker {
 	}
 
 	@Contract(pure = true)
-	private static WinState verticalWin(@NotNull final Piece[][] board) {
-		for (int row = 0; row < board.length - 3; row++) {
-			for (int column = 0; column < board[0].length; column++) {
-				if (board[row][column] != Piece.Empty
-						&& board[row][column] == board[row + 1][column]
-						&& board[row][column] == board[row + 2][column]
-						&& board[row][column] == board[row + 3][column]) {
-					return getWinnerFromPiece(board[row][column]);
+	private static WinState verticalWin(@NotNull final Board board) {
+		for (byte row = 0; row < board.getRowCount() - 3; row++) {
+			for (byte column = 0; column < board.getColumnCount(); column++) {
+				if (board.getPiece(row, column) != Piece.Empty
+						&& board.getPiece(row, column) == board.getPiece((byte) (row + 1), column)
+						&& board.getPiece(row, column) == board.getPiece((byte) (row + 2), column)
+						&& board.getPiece(row, column) == board.getPiece((byte) (row + 3), column)) {
+					return board.getPiece(row, column).getWinner();
 				}
 			}
 		}
@@ -67,14 +67,14 @@ final class WinChecker {
 	}
 
 	@Contract(pure = true)
-	private static WinState leftRightDiagonalWin(@NotNull final Piece[][] board) {
-		for (int row = 0; row < board.length - 3; row++) {
-			for (int column = 0; column < board[0].length - 3; column++) {
-				if (board[row][column] != Piece.Empty
-						&& board[row][column] == board[row + 1][column + 1]
-						&& board[row][column] == board[row + 2][column + 2]
-						&& board[row][column] == board[row + 3][column + 3]) {
-					return getWinnerFromPiece(board[row][column]);
+	private static WinState leftRightDiagonalWin(@NotNull final Board board) {
+		for (byte row = 0; row < board.getRowCount() - 3; row++) {
+			for (byte column = 0; column < board.getColumnCount() - 3; column++) {
+				if (board.getPiece(row, column) != Piece.Empty
+						&& board.getPiece(row, column) == board.getPiece((byte) (row + 1), (byte) (column + 1))
+						&& board.getPiece(row, column) == board.getPiece((byte) (row + 2), (byte) (column + 2))
+						&& board.getPiece(row, column) == board.getPiece((byte) (row + 3), (byte) (column + 3))) {
+					return board.getPiece(row, column).getWinner();
 				}
 			}
 		}
@@ -82,45 +82,17 @@ final class WinChecker {
 	}
 
 	@Contract(pure = true)
-	private static WinState rightLeftDiagonalWin(@NotNull final Piece[][] board) {
-		for (int row = 0; row < board.length - 3; row++) {
-			for (int column = board[0].length - 1; column > 3; column--) {
-				if (board[row][column] != Piece.Empty
-						&& board[row][column] == board[row + 1][column - 1]
-						&& board[row][column] == board[row + 2][column - 2]
-						&& board[row][column] == board[row + 3][column - 3]) {
-					return getWinnerFromPiece(board[row][column]);
+	private static WinState rightLeftDiagonalWin(@NotNull final Board board) {
+		for (byte row = 0; row < board.getRowCount() - 3; row++) {
+			for (byte column = (byte) (board.getColumnCount() - 1); column > 3; column--) {
+				if (board.getPiece(row, column) != Piece.Empty
+						&& board.getPiece(row, column) == board.getPiece((byte) (row + 1), (byte) (column - 1))
+						&& board.getPiece(row, column) == board.getPiece((byte) (row + 2), (byte) (column - 2))
+						&& board.getPiece(row, column) == board.getPiece((byte) (row + 3), (byte) (column - 3))) {
+					return board.getPiece(row, column).getWinner();
 				}
 			}
 		}
 		return WinState.NoOne;
-	}
-
-	private static WinState getWinnerFromPiece(final Piece piece) {
-		switch (piece) {
-			case Yellow:
-				return WinState.Yellow;
-			case Red:
-				return WinState.Red;
-			default:
-				return WinState.NoOne;
-		}
-	}
-
-	/**
-	 * Checks if the board is full. Should be run after checking for a specific win since it returns either full or empty.
-	 *
-	 * @param board Main Game Board
-	 *
-	 * @return Whether or Not the Board is Full
-	 */
-	@Contract(pure = true)
-	private static boolean isFull(@NotNull final Piece[][] board) { // Just Checks Top
-		for (byte column = 0; column < board[0].length; column++) { // If Top is Full, Entire Board Must be Full
-			if (board[0][column] == Piece.Empty) {
-				return false;
-			}
-		}
-		return true;
 	}
 }

@@ -18,9 +18,9 @@ public final class ConnectFour extends Applet implements KeyListener, MouseListe
 
 	private WinState gameWon = WinState.NoOne;
 	private boolean turn = false;
-	private Piece[][] board = getEmptyBoard();
+	private Board board = new Board();
 
-	public final void init() {
+	public void init() {
 		setName("Connect Four");
 		setBackground(Color.GRAY);
 
@@ -50,9 +50,9 @@ public final class ConnectFour extends Applet implements KeyListener, MouseListe
 	}
 
 	private void drawPieces(Graphics g) {
-		for (int i = 0; i < board.length; i++) {
-			for (int h = 0; h < board[0].length; h++) {
-				g.setColor(board[i][h].getColor());
+		for (byte i = 0; i < board.getRowCount(); i++) {
+			for (byte h = 0; h < board.getColumnCount(); h++) {
+				g.setColor(board.getPiece(i, h).getColor());
 				g.fillOval(10 + (100 * h), 10 + (100 * i), 80, 80);
 			}
 		}
@@ -108,16 +108,16 @@ public final class ConnectFour extends Applet implements KeyListener, MouseListe
 		}
 	}
 
-	private void clickPiece(int x) {
-		x = (x - 10) / 100;
-		if (x < board[0].length && x >= 0 && board[0][x] == Piece.Empty) {
+	private void clickPiece(byte x) {
+		x = (byte) ((x - 10) / 100);
+		if (x < board.getColumnCount() && x >= 0 && board.getPiece((byte) 0, x) == Piece.Empty) {
 			updateBoard(x);
 		}
 	}
 
-	private void numberPress(int e) {
-		e = e - 49;
-		if (e >= 0 && e < board[0].length && board[0][e] == Piece.Empty) {
+	private void numberPress(byte e) {
+		e = (byte) (e - 49);
+		if (e >= 0 && e < board.getColumnCount() && board.getPiece((byte) 0, e) == Piece.Empty) {
 			updateBoard(e);
 		}
 	}
@@ -131,9 +131,9 @@ public final class ConnectFour extends Applet implements KeyListener, MouseListe
 		}
 		turn = !turn;
 
-		for (int y = board.length - 1; y >= 0; y--) {
-			if (board[y][x] == Piece.Empty) {
-				board[y][x] = piece;
+		for (byte y = (byte) (board.getRowCount() - 1); y >= 0; y--) {
+			if (board.getPiece(y, (byte) x) == Piece.Empty) {
+				board.setPiece(y, (byte) x, piece);
 				break;
 			}
 		}
@@ -146,17 +146,12 @@ public final class ConnectFour extends Applet implements KeyListener, MouseListe
 	private void resetGame() {
 		turn = false;
 		gameWon = WinState.NoOne;
-		board = getEmptyBoard();
+		board = new Board();
 	}
 
 	private Piece[][] getEmptyBoard() {
 		return new Piece[][]{
-				{Piece.Empty, Piece.Empty, Piece.Empty, Piece.Empty, Piece.Empty, Piece.Empty, Piece.Empty},
-				{Piece.Empty, Piece.Empty, Piece.Empty, Piece.Empty, Piece.Empty, Piece.Empty, Piece.Empty},
-				{Piece.Empty, Piece.Empty, Piece.Empty, Piece.Empty, Piece.Empty, Piece.Empty, Piece.Empty},
-				{Piece.Empty, Piece.Empty, Piece.Empty, Piece.Empty, Piece.Empty, Piece.Empty, Piece.Empty},
-				{Piece.Empty, Piece.Empty, Piece.Empty, Piece.Empty, Piece.Empty, Piece.Empty, Piece.Empty},
-				{Piece.Empty, Piece.Empty, Piece.Empty, Piece.Empty, Piece.Empty, Piece.Empty, Piece.Empty},
+
 		};
 	}
 
@@ -164,7 +159,7 @@ public final class ConnectFour extends Applet implements KeyListener, MouseListe
 	@Override
 	public final void mouseClicked(MouseEvent e) {
 		if (gameWon == WinState.NoOne) {
-			clickPiece(e.getX());
+			clickPiece((byte) e.getX());
 			checkWin();
 			repaint();
 		}
@@ -173,7 +168,7 @@ public final class ConnectFour extends Applet implements KeyListener, MouseListe
 	@Override
 	public final void keyTyped(KeyEvent e) {
 		if (gameWon == WinState.NoOne) {
-			numberPress(e.getKeyChar());
+			numberPress((byte) e.getKeyChar());
 			checkWin();
 			repaint();
 		} else {

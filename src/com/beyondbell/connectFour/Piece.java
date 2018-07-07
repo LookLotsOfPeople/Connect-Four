@@ -15,7 +15,19 @@ public enum Piece {
 	}
 
 	@Contract(pure = true)
-	public final Color getColor() {
+	final Color getColor() {
 		return color;
+	}
+
+	@Contract(pure = true)
+	final WinState getWinner() {
+		switch (this) {
+			case Yellow:
+				return WinState.Yellow;
+			case Red:
+				return WinState.Red;
+			default:
+				return WinState.NoOne;
+		}
 	}
 }
