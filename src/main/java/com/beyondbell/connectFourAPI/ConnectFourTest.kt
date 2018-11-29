@@ -51,10 +51,10 @@ internal class ConnectFourTest : Applet(), KeyListener, MouseListener {
 	}
 
 	private fun drawPieces(g: Graphics) {
-		for (i in 0 until board.getRowCount()) {
-			for (h in 0 until board.getColumnCount()) {
-				g.color = board.getPiece(i, h).color
-				g.fillOval(10 + 100 * h, 10 + 100 * i, 80, 80)
+		for (row in 0 until board.getRowCount()) {
+			for (column in 0 until board.getColumnCount()) {
+				g.color = board.getPiece(row, column).color
+				g.fillOval(10 + 100 * column, 10 + 100 * row, 80, 80)
 			}
 		}
 	}
