@@ -70,8 +70,8 @@ internal class ConnectFourTest : Applet(), KeyListener, MouseListener {
 	}
 
 	private fun drawRules(g: Graphics) {
-		g.color = Color.BLACK
 		g.font = Font("Times New Roman", Font.PLAIN, 16)
+		g.color = Color.BLACK
 		g.drawString("How To Play", 710, 400)
 		g.drawString("Either Click", 710, 420)
 		g.drawString("A Row", 710, 440)
