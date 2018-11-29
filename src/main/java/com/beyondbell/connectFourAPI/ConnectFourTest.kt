@@ -185,6 +185,6 @@ internal class ConnectFourTest : Applet(), KeyListener, MouseListener {
     }
 
     override fun mousePressed(e: MouseEvent) {
-        
+
     }
 }
