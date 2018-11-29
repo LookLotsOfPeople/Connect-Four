@@ -18,9 +18,6 @@ internal class ConnectFourTest : Applet(), KeyListener, MouseListener {
 	private var turn = false
 	private var board = Board()
 
-	private val emptyBoard: Array<Array<Piece>>
-		get() = arrayOf()
-
 	override fun init() {
 		name = "Connect Four"
 		background = Color.GRAY
