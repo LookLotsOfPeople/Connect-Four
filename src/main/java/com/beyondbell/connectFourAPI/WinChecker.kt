@@ -1,6 +1,6 @@
 package com.beyondbell.connectFourAPI
 
-fun getWinState(board: Board): WinState? {
+fun getWinState(board: Board): WinState {
 	//Checks Horizontal Wins
 	val horizontal = horizontalWin(board)
 	if (horizontal != WinState.NoOne) {
