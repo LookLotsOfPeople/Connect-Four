@@ -25,11 +25,6 @@ internal class ConnectFourTest : Applet(), KeyListener, MouseListener {
 		name = "Connect Four"
 		background = Color.GRAY
 
-		val dimension = Dimension(800, 600)
-		resize(dimension)
-		minimumSize = dimension
-		maximumSize = dimension
-
 		isFocusable = true
 		isEnabled = true
 
