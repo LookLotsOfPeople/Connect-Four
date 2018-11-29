@@ -165,26 +165,26 @@ internal class ConnectFourTest : Applet(), KeyListener, MouseListener {
     // Unimplemented
 
     override fun keyPressed(e: KeyEvent) {
-        TODO("not implemented")
+
     }
 
     override fun keyReleased(e: KeyEvent) {
-        TODO("not implemented")
+
     }
 
     override fun mouseReleased(e: MouseEvent) {
-        TODO("not implemented")
+
     }
 
     override fun mouseEntered(e: MouseEvent) {
-        TODO("not implemented")
+
     }
 
     override fun mouseExited(e: MouseEvent) {
-        TODO("not implemented")
+
     }
 
     override fun mousePressed(e: MouseEvent) {
-        TODO("not implemented")
+        
     }
 }
