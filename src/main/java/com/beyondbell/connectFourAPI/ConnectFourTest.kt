@@ -1,7 +1,5 @@
-import com.beyondbell.connectFourAPI.Board
-import com.beyondbell.connectFourAPI.Piece
-import com.beyondbell.connectFourAPI.WinState
-import com.beyondbell.connectFourAPI.getWinState
+package com.beyondbell.connectFourAPI
+
 import java.applet.Applet
 import java.awt.Color
 import java.awt.Dimension
@@ -12,7 +10,7 @@ import java.awt.event.KeyListener
 import java.awt.event.MouseEvent
 import java.awt.event.MouseListener
 
-class ConnectFour : Applet(), KeyListener, MouseListener {
+internal class ConnectFourTest : Applet(), KeyListener, MouseListener {
 	private var yellowWins = 0
 	private var redWins = 0
 
