@@ -108,7 +108,7 @@ internal class ConnectFourTest : Applet(), KeyListener, MouseListener {
 	}
 
 	private fun numberPress(realNumber: Char) {
-		val e = (realNumber - 49) as Int
+		val e = (realNumber - 49).toInt()
 		if (e >= 0 && e < board.getColumnCount() && board.getPiece(0, e) === Piece.Empty) {
 			updateBoard(e)
 		}
