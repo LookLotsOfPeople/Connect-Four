@@ -101,7 +101,7 @@ internal class ConnectFourTest : Applet(), KeyListener, MouseListener {
 	}
 
 	private fun clickPiece(realX: Int) {
-		val x = ((x - 10) / 100)
+		val x = ((realX - 10) / 100)
 		if (x < board.getColumnCount() && x >= 0 && board.getPiece(0, x) === Piece.Empty) {
 			updateBoard(x)
 		}
