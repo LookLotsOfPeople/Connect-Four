@@ -101,19 +101,17 @@ internal class ConnectFourTest : Applet(), KeyListener, MouseListener {
 		}
 	}
 
-	private fun clickPiece(x: Byte) {
-		var x = x
-		x = ((x - 10) / 100).toByte()
-		if (x < board.getColumnCount() && x >= 0 && board.getPiece(0.toByte().toInt(), x.toInt()) === Piece.Empty) {
-			updateBoard(x.toInt())
+	private fun clickPiece(realX: Int) {
+		val x = ((x - 10) / 100)
+		if (x < board.getColumnCount() && x >= 0 && board.getPiece(0, x) === Piece.Empty) {
+			updateBoard(x)
 		}
 	}
 
-	private fun numberPress(e: Byte) {
-		var e = e
-		e = (e - 49).toByte()
-		if (e >= 0 && e < board.getColumnCount() && board.getPiece(0.toByte().toInt(), e.toInt()) === Piece.Empty) {
-			updateBoard(e.toInt())
+	private fun numberPress(realNumber: Char) {
+		val e = (realNumber - 49) as Int
+		if (e >= 0 && e < board.getColumnCount() && board.getPiece(0, e) === Piece.Empty) {
+			updateBoard(e)
 		}
 	}
 
@@ -125,9 +123,9 @@ internal class ConnectFourTest : Applet(), KeyListener, MouseListener {
 		}
 		turn = !turn
 
-		for (y in (board.getRowCount() - 1).toByte() downTo 0) {
-			if (board.getPiece(y, x.toByte().toInt()) === Piece.Empty) {
-				board.setPiece(y, x.toByte().toInt(), piece)
+		for (y in (board.getRowCount() - 1) downTo 0) {
+			if (board.getPiece(y, x) === Piece.Empty) {
+				board.setPiece(y, x, piece)
 				break
 			}
 		}
@@ -146,7 +144,7 @@ internal class ConnectFourTest : Applet(), KeyListener, MouseListener {
 
 	override fun mouseClicked(e: MouseEvent) {
 		if (gameWon === WinState.NoOne) {
-			clickPiece(e.x.toByte())
+			clickPiece(e.x)
 			checkWin()
 			repaint()
 		}
@@ -154,7 +152,7 @@ internal class ConnectFourTest : Applet(), KeyListener, MouseListener {
 
 	override fun keyTyped(e: KeyEvent) {
 		if (gameWon === WinState.NoOne) {
-			numberPress(e.keyChar.toByte())
+			numberPress(e.keyChar)
 			checkWin()
 			repaint()
 		} else {
