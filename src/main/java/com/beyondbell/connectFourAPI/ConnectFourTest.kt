@@ -14,7 +14,7 @@ internal class ConnectFourTest : Applet(), KeyListener, MouseListener {
 	private var yellowWins = 0
 	private var redWins = 0
 
-	private var gameWon: WinState? = WinState.NoOne
+	private var gameWon: WinState = WinState.NoOne
 	private var turn = false
 	private var board = Board()
 
