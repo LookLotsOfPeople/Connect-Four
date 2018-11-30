@@ -9,7 +9,7 @@ import java.awt.event.KeyListener
 import java.awt.event.MouseEvent
 import java.awt.event.MouseListener
 
-internal class ConnectFourTest : Applet(), KeyListener, MouseListener {
+class ConnectFourTest : Applet(), KeyListener, MouseListener {
 	private var yellowWins = 0
 	private var redWins = 0
 
@@ -102,14 +102,14 @@ internal class ConnectFourTest : Applet(), KeyListener, MouseListener {
 
 	private fun clickPiece(realX: Int) {
 		val x = (realX - 10) / 100
-		if (x < board.getColumnCount() && x >= 0 && board.getPiece(0, x) === Piece.Empty) {
+		if (x < board.getColumnCount() && x >= 0 && board.getPiece(0, x) == Piece.Empty) {
 			updateBoard(x)
 		}
 	}
 
 	private fun numberPress(realNumber: Char) {
 		val e = (realNumber - 49).toInt()
-		if (e >= 0 && e < board.getColumnCount() && board.getPiece(0, e) === Piece.Empty) {
+		if (e >= 0 && e < board.getColumnCount() && board.getPiece(0, e) == Piece.Empty) {
 			updateBoard(e)
 		}
 	}
@@ -123,7 +123,7 @@ internal class ConnectFourTest : Applet(), KeyListener, MouseListener {
 		turn = !turn
 
 		for (y in (board.getRowCount() - 1) downTo 0) {
-			if (board.getPiece(y, x) === Piece.Empty) {
+			if (board.getPiece(y, x) == Piece.Empty) {
 				board.setPiece(y, x, piece)
 				break
 			}
@@ -142,7 +142,7 @@ internal class ConnectFourTest : Applet(), KeyListener, MouseListener {
 
 
 	override fun mouseClicked(e: MouseEvent) {
-		if (gameWon === WinState.NoOne) {
+		if (gameWon == WinState.NoOne) {
 			clickPiece(e.x)
 			checkWin()
 			repaint()
@@ -150,7 +150,7 @@ internal class ConnectFourTest : Applet(), KeyListener, MouseListener {
 	}
 
 	override fun keyTyped(e: KeyEvent) {
-		if (gameWon === WinState.NoOne) {
+		if (gameWon == WinState.NoOne) {
 			numberPress(e.keyChar)
 			checkWin()
 			repaint()

@@ -23,19 +23,19 @@ fun getWinState(board: Board): WinState {
 	}
 
 	return if (board.isFull()) {
-		WinState.NoOne
-	} else {
 		WinState.Tie
+	} else {
+		WinState.NoOne
 	}
 }
 
 private fun horizontalWin(board: Board): WinState {
 	for (row in 0 until board.getRowCount()) {
-		for (column in 0 until board.getColumnCount()) {
-			if (board.getPiece(row, column) !== Piece.Empty
-					&& board.getPiece(row, column) == board.getPiece(row, (column + 3))
-					&& board.getPiece(row, column) == board.getPiece(row, (column + 3))
-					&& board.getPiece(row, column) == board.getPiece(row, (column + 3))) {
+		for (column in 0 until board.getColumnCount() - 3) {
+			if (board.getPiece(row, column) != Piece.Empty
+					&& board.getPiece(row, column) == board.getPiece(row, column + 1)
+					&& board.getPiece(row, column) == board.getPiece(row, column + 2)
+					&& board.getPiece(row, column) == board.getPiece(row, column + 3)) {
 				return board.getPiece(row, column).getWinner()
 			}
 		}
@@ -46,10 +46,10 @@ private fun horizontalWin(board: Board): WinState {
 private fun verticalWin(board: Board): WinState {
 	for (row in 0 until board.getRowCount() - 3) {
 		for (column in 0 until board.getColumnCount()) {
-			if (board.getPiece(row, column) !== Piece.Empty
-					&& board.getPiece(row, column) == board.getPiece((row + 1), column)
-					&& board.getPiece(row, column) == board.getPiece((row + 2), column)
-					&& board.getPiece(row, column) == board.getPiece((row + 3), column)) {
+			if (board.getPiece(row, column) != Piece.Empty
+					&& board.getPiece(row, column) == board.getPiece(row + 1, column)
+					&& board.getPiece(row, column) == board.getPiece(row + 2, column)
+					&& board.getPiece(row, column) == board.getPiece(row + 3, column)) {
 				return board.getPiece(row, column).getWinner()
 			}
 		}
@@ -60,7 +60,7 @@ private fun verticalWin(board: Board): WinState {
 private fun leftRightDiagonalWin(board: Board): WinState {
 	for (row in 0 until board.getRowCount() - 3) {
 		for (column in 0 until board.getColumnCount() - 3) {
-			if (board.getPiece(row, column) !== Piece.Empty
+			if (board.getPiece(row, column) != Piece.Empty
 					&& board.getPiece(row, column) == board.getPiece((row + 1), (column + 1))
 					&& board.getPiece(row, column) == board.getPiece((row + 2), (column + 2))
 					&& board.getPiece(row, column) == board.getPiece((row + 3), (column + 3))) {
@@ -73,8 +73,8 @@ private fun leftRightDiagonalWin(board: Board): WinState {
 
 private fun rightLeftDiagonalWin(board: Board): WinState {
 	for (row in 0 until board.getRowCount() - 3) {
-		for (column in board.getColumnCount() - 1 downTo 4) {
-			if (board.getPiece(row, column) !== Piece.Empty
+		for (column in board.getColumnCount() - 1 downTo 3) {
+			if (board.getPiece(row, column) != Piece.Empty
 					&& board.getPiece(row, column) == board.getPiece((row + 1), (column - 1))
 					&& board.getPiece(row, column) == board.getPiece((row + 2), (column - 2))
 					&& board.getPiece(row, column) == board.getPiece((row + 3), (column - 3))) {
