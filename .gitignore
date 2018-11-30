@@ -1,3 +1,5 @@
 .idea/
 connectfourapi.iml
 target/
+out/
+META-INF/MANIFEST.MF
