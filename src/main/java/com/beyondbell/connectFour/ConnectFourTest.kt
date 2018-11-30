@@ -1,5 +1,9 @@
-package com.beyondbell.connectFourAPI
+package com.beyondbell.connectFour
 
+import com.beyondbell.connectFourAPI.Board
+import com.beyondbell.connectFourAPI.Piece
+import com.beyondbell.connectFourAPI.WinState
+import com.beyondbell.connectFourAPI.getWinState
 import java.applet.Applet
 import java.awt.Color
 import java.awt.Font
