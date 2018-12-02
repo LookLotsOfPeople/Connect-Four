@@ -33,11 +33,11 @@ class ConnectFourTest : Applet(), KeyListener, MouseListener {
 	}
 
 	override fun paint(g: Graphics) {
+		drawRules(g)
 		drawBoard(g)
 		drawPieces(g)
-		drawScoreboard(g)
-		drawRules(g)
 		drawWinner(g)
+		drawScoreboard(g)
 	}
 
 	private fun drawBoard(g: Graphics) {
@@ -48,7 +48,11 @@ class ConnectFourTest : Applet(), KeyListener, MouseListener {
 	private fun drawPieces(g: Graphics) {
 		for (row in 0 until board.getRowCount()) {
 			for (column in 0 until board.getColumnCount()) {
-				g.color = board.getPiece(row, column).color
+				when (board.getPiece(row, column)) {
+					Piece.Yellow -> g.color = Color.YELLOW
+					Piece.Red -> g.color = Color.RED
+					Piece.Empty -> g.color = Color.WHITE
+				}
 				g.fillOval(10 + 100 * column, 10 + 100 * row, 80, 80)
 			}
 		}
