@@ -1,9 +1,7 @@
 package com.beyondbell.connectFourAPI
 
-import java.awt.Color
-
-enum class Piece(val color: Color) {
-	Empty(Color.WHITE), Yellow(Color.YELLOW), Red(Color.RED);
+enum class Piece {
+	Empty, Yellow, Red;
 
 	fun getWinner(): WinState {
 		return when (this) {
